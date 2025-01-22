@@ -1,0 +1,58 @@
+/* Tailwind Base Styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom property for controlling gradient angle */
+@property --bg-angle {
+  inherits: false;
+  initial-value: 0deg;
+  syntax: "<angle>";
+}
+
+/* Keyframes for smooth spinning gradient */
+@keyframes spin {
+  0% {
+    --bg-angle: 0deg; /* Starting angle */
+  }
+  100% {
+    --bg-angle: 360deg; /* Full rotation */
+  }
+}
+
+/* Custom Border Gradient with Spinning Animation */
+.animate-gradient-border {
+  border: 6px solid transparent; /* Transparent border to allow gradient to show */
+  
+  /* Static background color */
+  background-color: black;
+
+  /* Static linear gradient for the background */
+  background: linear-gradient(
+    to right, 
+    #9f7aea, 
+    #ed64a6, 
+    #fc8181
+  ) padding-box, /* Static gradient for inner box */
+  
+  /* Dynamic conic gradient for the border with rotating colors */
+  conic-gradient(
+    from var(--bg-angle), 
+    #9f7aea 0%, 
+    #ed64a6 50%, 
+    #fc8181 100% /* Color stops for gradient transition */
+  ) border-box; /* Dynamic gradient border */
+  
+  /* Smooth continuous animation */
+  animation: spin 10s linear infinite; /* 10s duration, continuous loop */
+  
+  padding: 20px;
+  /* Optional: Control the size and appearance of the content */
+  border-radius: 8px; /* Rounded corners */
+  transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
+  
+  /* Hover effect to make the border gradient spin */
+  &:hover {
+    animation-play-state: running; /* Start animation on hover */
+  }
+}
